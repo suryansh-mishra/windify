@@ -1,7 +1,7 @@
 async function getWeather(lat, lon) {
   const open_weather_access_token = 'a33e66b56e2e13cc1103246834965448';
   const weatherAPI_call_string = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${open_weather_access_token}&units=metric`;
-  const airAPI_call_string = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${open_weather_access_token}`;
+  const airAPI_call_string = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${open_weather_access_token}`;
 
   const weatherResponse = fetch(weatherAPI_call_string);
   const airQualityResponse = fetch(airAPI_call_string);
