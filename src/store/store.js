@@ -1,12 +1,41 @@
 import { create } from 'zustand';
-import { Card, Marker } from './storeClasses';
+import { Card, Marker } from './store.classes';
 import getLocation from '../utils/getLocation';
 import getWeather from '../utils/getWeather';
 
 const useStore = create((set) => ({
+  showModal: false,
   initialLocation: [],
   markers: [],
   cardsCollection: [],
+  instructionsRead: true,
+  locationPermissions: false,
+  // loading: false,
+  // error: false,
+  // snackBarText: '',
+
+  // No use just created for timepass
+  isInitialLocationSet: () => {
+    return useStore.getState().initialLocation.length > 0;
+  },
+
+  setLocationPermissions: () => {
+    set(() => ({
+      locationPermissions: true,
+    }));
+  },
+
+  setInstructionsRead: (val) => {
+    set(() => ({
+      instructionsRead: val,
+    }));
+  },
+
+  setShowModal: (val) => {
+    set((state) => ({
+      showModal: val,
+    }));
+  },
   updateMarker: async (markerId, pos) => {
     const location = await getLocation(pos[0], pos[1]);
     const weatherData = await getWeather(pos[0], pos[1]);

@@ -12,14 +12,22 @@ async function getLocation(lat, lng) {
       locationData.address.city ||
       locationData.address.name ||
       locationData.address.county;
+    let location = '';
+    if (locationCity) location = `${locationCity}`;
+    if (locationData?.address?.state)
+      location += `, ${locationData.address.state}`;
 
-    const location = locationCity
-      ? `${locationCity}, ${locationData.address.state}`
-      : `${locationData.address.state}`;
+    if (
+      !locationCity &&
+      !locationData?.address?.state &&
+      locationData?.address?.country
+    ) {
+      location += `${locationData.address.country}`;
+    }
 
     return location;
   } catch (err) {
-    // console.log(err);
+    console.log(err);
     throw Error('Some error occured while fetching your location');
   }
 }

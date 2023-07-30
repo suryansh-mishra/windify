@@ -5,9 +5,9 @@ import styled from '@emotion/styled';
 import CardList from './components/cardList/cardList.component';
 import InitialModal from './components/initialModal/initialModal.component';
 import Header from './components/header/header.component';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import useStore from './store/store';
-import { Marker, Card as CardClass } from './store/storeClasses';
+import { Marker, Card as CardClass } from './store/store.classes';
 import getLocation from './utils/getLocation';
 import getWeather from './utils/getWeather';
 
@@ -49,11 +49,17 @@ const ApplicationContainer = styled.div`
 `;
 
 const App = () => {
-  const [showModal, setShowModal] = useState(false);
-  // const markers = useStore((state) => state.markers);
+  const instructionsRead = useStore((state) => state.instructionsRead);
+  const setLocationPermissions = useStore(
+    (state) => state.setLocationPermissions
+  );
+  const locationPermissions = useStore((state) => state.locationPermissions);
 
+  const initialLocation = useStore((state) => state.initialLocation);
+  const showModal = useStore((state) => state.showModal);
+  const setShowModal = useStore((state) => state.setShowModal);
   const setInstructionsRead = () => {
-    localStorage.setItem('instructionRead', 'READ');
+    localStorage.setItem('instructionsRead', 'READ');
     setShowModal(false);
   };
 
@@ -72,44 +78,74 @@ const App = () => {
   };
 
   useEffect(() => {
-    const locationPermissions = localStorage.getItem('locationPermissions');
-    if (
-      localStorage.getItem('instructionRead') === 'READ' &&
-      (locationPermissions === 'GRANTED' ||
-        (navigator.onLine && navigator.geolocation))
-    ) {
-      // Set the placeholder text here to loading or something
-      if (locationPermissions !== 'GRANTED')
-        localStorage.setItem('locationPermissions', 'GRANTED');
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          const position = [pos.coords.latitude, pos.coords.longitude];
-          setInitialLocation(position);
-        },
-        () => alert('Location permission denied or services not available!')
-      );
-      if (showModal) setShowModal(() => false);
+    const foo = async () => {
+      console.log(instructionsRead, locationPermissions, initialLocation);
+      if (localStorage.getItem('instructionsRead') !== 'READ') {
+        console.log('Setting up modal and instructions as not read');
+        setInstructionsRead(false);
+        setShowModal(true);
+      } else {
+        setInstructionsRead(true);
+
+        const browserLocationPermissions = await navigator.permissions.query({
+          name: 'geolocation',
+        });
+        if (browserLocationPermissions.state === 'granted') {
+          console.log('Found browser location permissions');
+          setLocationPermissions();
+        } else if (navigator.onLine && navigator.geolocation) {
+          setLocationPermissions();
+        } else {
+          // SET MODAL SAYING NO PERMISSIONS, SO MAY TAKE THE TAP TAP ROUTE
+        }
+      }
+    };
+    foo();
+    // };
+
+    // if (useStore.getStore().initialLocation.length === 0) {
+    //   console.log('App Use effect ran again');
+    //   const locationPermissions = localStorage.getItem('locationPermissions');
+    //   if (locationPermissions === 'GRANTED') setLocationPermissions();
+    //   if (
+    //     localStorage.getItem('instructionsRead') === 'READ' &&
+    //     (locationPermissions === 'GRANTED' ||
+    //       (navigator.onLine && navigator.geolocation))
+    //   ) {
+    //     // Set the placeholder text here to loading or something
+    //     if (locationPermissions !== 'GRANTED')
+    //       localStorage.setItem('locationPermissions', 'GRANTED');
+    //     navigator.geolocation.getCurrentPosition(
+    //       (pos) => {
+    //         const position = [pos.coords.latitude, pos.coords.longitude];
+    //         setInitialLocation(position);
+    //       },
+    //       () => alert('Location permission denied or services not available!')
+    //     );
+    //   }
+    // }
+  }, [instructionsRead]);
+
+  useEffect(() => {
+    if (locationPermissions && initialLocation.length === 0) {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            const position = [pos.coords.latitude, pos.coords.longitude];
+            setInitialLocation(position);
+          },
+          () => alert('Location permission denied or services not available!')
+        );
+      }
     }
-  }, []);
+  }, [locationPermissions]);
   return (
     <>
       <ApplicationContainer>
         <PrimeSectionContainer>
-          <Header>
-            <img src="logo.png" />
-            <h1>windify</h1>
-          </Header>
+          <Header />
           <CardList></CardList>
         </PrimeSectionContainer>
-
-        {/* <PrimeSectionContainer>
-          <Header>
-            <LogoHeadingStyled>windify</LogoHeadingStyled>
-          </Header>
-          <CardList></CardList>
-        </PrimeSectionContainer> */}
-
-        {/* <ModalWrapper></ModalWrapper> */}
         {showModal && (
           <InitialModal clickHandler={setInstructionsRead}></InitialModal>
         )}

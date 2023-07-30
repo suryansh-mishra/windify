@@ -2,13 +2,15 @@ import styled from '@emotion/styled';
 import { useEffect, useRef } from 'react';
 import THEMES from './card.themes';
 import useStore from '../../store/store';
+import { motion } from 'framer-motion';
 
-const CardStyled = styled.div`
+const CardStyled = styled(motion.div)`
   color: var(--color--card--text);
   font-size: 1.5rem;
-  font-family: Raleway;
+  font-family: Poppins, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   line-height: 2.25rem;
-  font-weight: 500;
+  font-weight: 400;
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
@@ -17,12 +19,23 @@ const CardStyled = styled.div`
   position: relative;
   opacity: 1;
   background-color: var(--color--card--natural);
+
   background-image: ${(props) => props.bgImage ?? props.bgImage};
+  cursor: pointer;
   border-radius: 1.5rem;
   box-shadow: var(--box--shadow--card);
-
+  h1 {
+    font-weight: 300;
+    font-size: 3.25rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  h1,
+  p {
+    max-width: 70%;
+  }
   @media only screen and (max-width: 700px) {
-    min-width: 35rem;
+    min-width: 30rem;
   }
 `;
 const WeatherIconWrapperStyled = styled.div`
@@ -60,13 +73,19 @@ const CloseButtonStyled = styled.button`
   margin-top: 1rem;
   padding: 0 0.4rem;
   font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+  :hover {
+    opacity: 0.8;
+  }
 `;
 
-function Card({ content }) {
+function Card({ content, ...props }) {
   const cardRef = useRef(null);
   const deleteCard = useStore((state) => state.deleteCard);
   useEffect(() => {
-    if (cardRef.current) cardRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (cardRef.current)
+      cardRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }, [cardRef, content]);
 
   const backgroundImage = THEMES[`${content.condition.toUpperCase()}_WEATHER`];
@@ -76,23 +95,50 @@ function Card({ content }) {
   };
 
   return (
-    <CardStyled ref={cardRef} bgImage={backgroundImage}>
-      <h3>{content.condition}</h3>
+    <CardStyled
+      ref={cardRef}
+      whileHover={{
+        scale: 0.975,
+        outline: 'solid .45rem orange',
+        outlineOffset: '.35rem',
+        boxShadow: 'none',
+      }}
+      initial={{
+        opacity: 0,
+        y: -100,
+        scale: 0.7,
+        outline: 'solid transparent .35rem',
+        outlineOffset: '.5rem',
+      }}
+      transition={
+        {
+          // duration: 0.25,
+        }
+      }
+      animate={{
+        opacity: 1,
+        scale: 1,
+        y: 0,
+      }}
+      exit={{ opacity: 0, y: 5 }}
+      bgImage={backgroundImage}
+      {...props}
+    >
+      <h1 className={`temperature_${content.markerId}`}>
+        {content?.temperature}
+      </h1>
       <CloseButtonStyled onClick={closeHandler}>&#10006; </CloseButtonStyled>
-      <p className={`location_${content.markerId}`}>
-        Location : {content?.location}
-      </p>
-      <p className={`temperature_${content.markerId}`}>
-        Temperature : {content?.temperature}
-      </p>
+      <p className={`condition_${content.markerId}`}>{content.condition}</p>
+      <p className={`location_${content.markerId}`}>{content?.location} </p>
       <p className={`air_${content.markerId}`}>
-        Air Quality : {content?.airQualitativeName} ({content?.airQualityIndex})
+        Air Quality is {content?.airQualitativeName} ({content?.airQualityIndex}
+        )
       </p>
       <p className={`humidity_${content.markerId}`}>
-        Humidity : {content?.humidity} 💧
+        Humidity of {content?.humidity} 💧
       </p>
       <p className={`wind_${content.markerId}`}>
-        Wind Speed : {content?.windSpeed} at {content?.windDegrees}° 💨
+        Winds blowing at {content?.windSpeed} m/s at {content?.windDegrees}° 💨
       </p>
       <WeatherIconWrapperStyled>
         <img src={content?.iconSource} className="weather-img" />

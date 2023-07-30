@@ -1,18 +1,19 @@
 import styled from '@emotion/styled';
 import Card from '../card/card.component';
 import useStore from '../../store/store';
+import { AnimatePresence, motion } from 'framer-motion';
 
-const CardListStyled = styled.div`
+const CardListStyled = styled(motion.div)`
   display: flex;
   flex-grow: 10;
   flex-flow: column;
   flex-direction: column;
   flex-basis: 1;
-  gap: 1rem;
+  gap: 1.5rem;
   position: relative;
   padding-block: 1.5rem;
   padding-bottom: 10rem;
-  padding-inline: 1rem;
+  padding-inline: 2.5rem;
   overflow-y: auto;
   height: 100vh;
 
@@ -70,8 +71,11 @@ function CardList() {
           <p>Ooops, looks like you&apos;ll need to tap on Map! 🍃</p>
         </PlaceholderText>
       )}
-      {cardsCollection.length > 0 &&
-        listToRender.map((c) => <Card key={c.markerId} content={c} />)}
+
+      <AnimatePresence>
+        {cardsCollection.length > 0 &&
+          listToRender.map((c) => <Card key={c.markerId} content={c} />)}
+      </AnimatePresence>
     </CardListStyled>
   );
 }
