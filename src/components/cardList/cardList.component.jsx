@@ -60,7 +60,7 @@ const PlaceholderText = styled.div`
 
 function CardList() {
   const cardsCollection = useStore((state) => state.cardsCollection);
-  console.log(cardsCollection);
+  // console.log(cardsCollection);
   const listToRender =
     cardsCollection.length > 0 ? cardsCollection.slice(0).reverse() : [];
   return (

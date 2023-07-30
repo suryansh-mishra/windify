@@ -19,7 +19,7 @@ async function getLocation(lat, lng) {
 
     return location;
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     throw Error('Some error occured while fetching your location');
   }
 }

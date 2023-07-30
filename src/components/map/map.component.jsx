@@ -24,7 +24,7 @@ function MyComponent() {
   const addMarker = useStore((state) => state.addMarker);
   const map = useMapEvent('click', (e) => {
     const position = [e.latlng.lat, e.latlng.lng];
-    console.log('Here to add marker', position);
+    // console.log('Here to add marker', position);
     addMarker(position);
     // console.log()
     map.flyTo(position);
