@@ -85,11 +85,14 @@ function Card({ content, ...props }) {
   const deleteCard = useStore((state) => state.deleteCard);
   useEffect(() => {
     if (cardRef.current)
-      cardRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      cardRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }, [cardRef, content]);
 
-  const backgroundImage = THEMES[`${content.condition.toUpperCase()}_WEATHER`];
-
+  const backgroundImage =
+    THEMES[
+      `${content.condition.toUpperCase()}_WEATHER${content.dark ? '_DARK' : ''}`
+    ];
+  console.log(backgroundImage, content.dark);
   const closeHandler = () => {
     deleteCard(content?.markerId);
   };

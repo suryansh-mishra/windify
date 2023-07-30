@@ -2,7 +2,6 @@ export class Card {
   constructor(markerId, location, weatherObject) {
     this.markerId = markerId;
     this.location = location;
-    this.night = weatherObject.night;
     this.airQualitativeName = weatherObject.airQualitativeName;
     this.airQualityIndex = weatherObject.airQualityIndex;
     this.iconSource = weatherObject.iconSource;
@@ -11,6 +10,7 @@ export class Card {
     this.condition = weatherObject.condition;
     this.windSpeed = weatherObject.windSpeed;
     this.windDegrees = weatherObject.windDegrees;
+    this.dark = weatherObject.dark;
   }
 }
 

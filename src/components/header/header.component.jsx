@@ -5,20 +5,26 @@ const HeaderStyled = styled(motion.div)`
   margin-bottom: 2rem;
   margin-top: 1.25rem;
   text-align: center;
+  display: flex;
+  flex-flow: column;
+  position: relative;
+  width: max-content;
+  margin: 0 auto;
   img {
     position: relative;
+    align-self: center;
     top: 0;
-    display: inline-block;
     height: 2.5rem;
   }
 
   h1 {
     color: var(--color--container--header--title);
+    color: #282828 !important;
     font-size: 2.5rem;
-    font-family: Montserrat;
-    font-weight: 900;
-    display: inline-block;
-    margin-left: 1rem;
+
+    font-family: Poppins, Helvetica, sans-serif;
+    font-weight: 300;
+    /* letter-spacing: 0.5rem; */
   }
 `;
 function Header() {
@@ -29,12 +35,35 @@ function Header() {
         duration: 0.5,
       }}
     >
-      <img src="logo.png" />
-      <motion.h1
+      <motion.img
         whileHover={{
-          letterSpacing: '.1rem',
+          rotateZ: '90deg',
+          marginBottom: '2rem',
+          marginTop: '-.25rem',
+        }}
+        transition={{
+          type: 'ease-out',
+          rotateZ: {
+            duration: 0.125,
+          },
+          marginBottom: {
+            delay: 0.15,
+            duration: 0.25,
+          },
+          marginTop: {
+            delay: 0.15,
+            duration: 0.25,
+          },
+        }}
+        src="wind_logo.png"
+      />
+      <motion.h1
+        initial={{
+          letterSpacing: '.075rem',
+        }}
+        whileHover={{
+          letterSpacing: '.65rem',
           color: 'var(--color--container--header--title-hover)',
-          paddingLeft: '50%',
         }}
         transition={{ duration: 0.25 }}
       >

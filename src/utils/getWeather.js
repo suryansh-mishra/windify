@@ -9,13 +9,15 @@ async function getWeather(lat, lon) {
   const airQualityData = await (await airQualityResponse).json();
   const airQualityIndex = airQualityData.list[0].main.aqi;
   const airQualitativeName = ['Good', 'Fair', 'Moderate', 'Poor', 'Very Poor'];
+  const weatherIcon = `/openweathermap/${weatherData.weather[0].icon}.svg`;
+  console.log(weatherData);
+  // n for night so determining dark
+  const dark = weatherData.weather[0].icon.slice(2) === 'n';
 
-  const weather_icon_source = `http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`;
-
-  const night = weatherData.weather[0].icon.slice(2) === 'n';
   return {
-    iconSource: weather_icon_source,
+    // iconSource: weather_icon_source,
     icon: `${weatherData.weather[0].icon}`,
+    iconSource: `${weatherIcon}`,
     temperature: `${weatherData.main.temp}°C`,
     humidity: `${weatherData.main.humidity}%`,
     condition: weatherData.weather[0].main,
@@ -23,7 +25,7 @@ async function getWeather(lat, lon) {
     airQualityIndex: airQualityIndex,
     windSpeed: weatherData.wind.speed,
     windDegrees: weatherData.wind.deg,
-    night: night,
+    dark,
   };
 }
 

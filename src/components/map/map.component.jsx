@@ -12,6 +12,7 @@ const MapContainerStyled = styled.div`
   display: flex;
   overflow: hidden;
   background-image: var(--background-image);
+  /* border: solid 2px #bbb; */
   @media only screen and (max-width: 700px) {
     border-radius: 1rem;
     margin: 1rem;

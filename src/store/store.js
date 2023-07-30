@@ -32,7 +32,7 @@ const useStore = create((set) => ({
   },
 
   setShowModal: (val) => {
-    set((state) => ({
+    set(() => ({
       showModal: val,
     }));
   },

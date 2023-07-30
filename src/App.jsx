@@ -14,13 +14,23 @@ import getWeather from './utils/getWeather';
 const PrimeSectionContainer = styled.main`
   display: flex;
   flex-flow: column;
+  position: relative;
   padding-top: 2rem;
   flex-basis: 0;
   flex-grow: 1;
+  z-index: 5;
   border-bottom-right-radius: var(--border-radius-soft-corner);
   border-top-right-radius: var(--border-radius-soft-corner);
-  background-image: var(--color--container--prime);
+  /* background-image: var(--color--container--prime); */
+  background-image: url('/public/bg1.jpg');
   box-shadow: var(--box--shadow);
+  background-size: 40px 40px;
+  background-image: linear-gradient(
+      to right,
+      rgba(200, 200, 200, 0.3) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(200, 200, 200, 0.3) 1px, #fff 1px);
 
   @media only screen and (max-width: 700px) {
     border-radius: 0;
@@ -28,14 +38,51 @@ const PrimeSectionContainer = styled.main`
     padding-inline: 1rem;
     box-shadow: none;
   }
+  ::after {
+    content: '';
+    position: absolute;
+    width: 75%;
+    z-index: -10;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    aspect-ratio: 2/1;
+
+    background: linear-gradient(315deg, #01ff12c9 0%, #3bbeffce 74%);
+    border-radius: 0 0 50rem 50rem;
+  }
+
+  ::before {
+    content: '';
+    position: absolute;
+    width: 45%;
+    z-index: -1;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    aspect-ratio: 2/1.05;
+    /* background-color #aee1f9;
+background-image: linear-gradient(315deg, #d6bbff 0%, #ffefe7 74%); */
+
+    background: linear-gradient(45deg, #d0ffd2 0%, #fee5f7 74%);
+
+    border-radius: 0rem 0rem 50rem 50rem;
+  }
+  > * {
+    z-index: 10;
+  }
 `;
 
 const ApplicationContainer = styled.div`
   display: flex;
+  position: relative;
   flex-grow: 1;
   flex-flow: row;
   gap: 1.75rem;
   padding-block: 2.5rem;
+  background-color: #ffffff2f;
+  backdrop-filter: blur(1px);
+
   @media only screen and (min-width: 700px) {
     max-height: 100vh;
   }
@@ -46,6 +93,16 @@ const ApplicationContainer = styled.div`
     gap: 0;
     background-image: var(--color--container--prime);
   }
+  /* ::before {
+    content: '';
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+  } */
 `;
 
 const App = () => {
@@ -101,29 +158,6 @@ const App = () => {
       }
     };
     foo();
-    // };
-
-    // if (useStore.getStore().initialLocation.length === 0) {
-    //   console.log('App Use effect ran again');
-    //   const locationPermissions = localStorage.getItem('locationPermissions');
-    //   if (locationPermissions === 'GRANTED') setLocationPermissions();
-    //   if (
-    //     localStorage.getItem('instructionsRead') === 'READ' &&
-    //     (locationPermissions === 'GRANTED' ||
-    //       (navigator.onLine && navigator.geolocation))
-    //   ) {
-    //     // Set the placeholder text here to loading or something
-    //     if (locationPermissions !== 'GRANTED')
-    //       localStorage.setItem('locationPermissions', 'GRANTED');
-    //     navigator.geolocation.getCurrentPosition(
-    //       (pos) => {
-    //         const position = [pos.coords.latitude, pos.coords.longitude];
-    //         setInitialLocation(position);
-    //       },
-    //       () => alert('Location permission denied or services not available!')
-    //     );
-    //   }
-    // }
   }, [instructionsRead]);
 
   useEffect(() => {

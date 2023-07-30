@@ -15,14 +15,16 @@ async function getLocation(lat, lng) {
     let location = '';
     if (locationCity) location = `${locationCity}`;
     if (locationData?.address?.state)
-      location += `, ${locationData.address.state}`;
+      location = location
+        ? location + `, ${locationData.address.state}`
+        : locationData.address.state;
 
     if (
       !locationCity &&
       !locationData?.address?.state &&
       locationData?.address?.country
     ) {
-      location += `${locationData.address.country}`;
+      location = `${locationData.address.country}`;
     }
 
     return location;

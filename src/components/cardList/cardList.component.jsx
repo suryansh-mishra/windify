@@ -11,12 +11,12 @@ const CardListStyled = styled(motion.div)`
   flex-basis: 1;
   gap: 1.5rem;
   position: relative;
-  padding-block: 1.5rem;
+  padding-block: 2.5rem;
+  margin-top: 2.75rem;
   padding-bottom: 10rem;
   padding-inline: 2.5rem;
   overflow-y: auto;
   height: 100vh;
-
   @media screen and (max-width: 700px) {
     flex-flow: row;
     align-items: stretch;
@@ -54,7 +54,7 @@ const PlaceholderText = styled.div`
   width: 100%;
   color: #414141;
   padding: 0 4rem;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Poppins, Arial, Helvetica, sans-serif;
   font-weight: 600;
   text-align: center;
 `;
