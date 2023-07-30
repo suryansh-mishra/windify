@@ -24,7 +24,6 @@ const HeaderStyled = styled(motion.div)`
 
     font-family: Poppins, Helvetica, sans-serif;
     font-weight: 300;
-    /* letter-spacing: 0.5rem; */
   }
 `;
 function Header() {

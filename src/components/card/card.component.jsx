@@ -92,7 +92,6 @@ function Card({ content, ...props }) {
     THEMES[
       `${content.condition.toUpperCase()}_WEATHER${content.dark ? '_DARK' : ''}`
     ];
-  console.log(backgroundImage, content.dark);
   const closeHandler = () => {
     deleteCard(content?.markerId);
   };

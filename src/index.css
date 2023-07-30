@@ -4,9 +4,8 @@
   padding: 0;
 }
 :root {
-  /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
+  font-family: Poppins, system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-weight: 400;
-  --primary-50 : 213.75deg 100% 96.86%
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -29,9 +28,12 @@ body {
       var(--color--primary--dark) 75%
     );  */
 
-    /* OPTION 2 */
-    background-size: 60px 60px;
-  background-image:
-    linear-gradient(to right, rgb(193, 193, 193) 1px, transparent 1px),
+  /* OPTION 2 */
+  background-size: 60px 60px;
+  background-image: linear-gradient(
+      to right,
+      rgb(193, 193, 193) 1px,
+      transparent 1px
+    ),
     linear-gradient(to bottom, rgb(200, 200, 200) 1px, transparent 1px);
 }

@@ -12,7 +12,6 @@ const MapContainerStyled = styled.div`
   display: flex;
   overflow: hidden;
   background-image: var(--background-image);
-  /* border: solid 2px #bbb; */
   @media only screen and (max-width: 700px) {
     border-radius: 1rem;
     margin: 1rem;
@@ -25,9 +24,7 @@ function MyComponent() {
   const addMarker = useStore((state) => state.addMarker);
   const map = useMapEvent('click', (e) => {
     const position = [e.latlng.lat, e.latlng.lng];
-    // console.log('Here to add marker', position);
     addMarker(position);
-    // console.log()
     map.flyTo(position);
   });
   return null;
@@ -49,7 +46,6 @@ function DraggableMarker({ markerId, coords, popupText, mapRef }) {
     []
   );
   useEffect(() => {
-    // popupRef.current.click();
     // MAKE POPUP OPEN HERE ---------
     markerRef?.current?.openPopup();
   }, [popupText]);

@@ -41,8 +41,7 @@ const CardListStyled = styled(motion.div)`
   /* Handle */
   ::-webkit-scrollbar-thumb {
     border-radius: 2rem;
-    /* height: 2rem; */
-    background: #f6f6f6;
+    background: #f1f1f1;
   }
 `;
 
@@ -61,7 +60,6 @@ const PlaceholderText = styled.div`
 
 function CardList() {
   const cardsCollection = useStore((state) => state.cardsCollection);
-  // console.log(cardsCollection);
   const listToRender =
     cardsCollection.length > 0 ? cardsCollection.slice(0).reverse() : [];
   return (

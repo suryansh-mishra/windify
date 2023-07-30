@@ -10,7 +10,6 @@ async function getWeather(lat, lon) {
   const airQualityIndex = airQualityData.list[0].main.aqi;
   const airQualitativeName = ['Good', 'Fair', 'Moderate', 'Poor', 'Very Poor'];
   const weatherIcon = `/openweathermap/${weatherData.weather[0].icon}.svg`;
-  console.log(weatherData);
   // n for night so determining dark
   const dark = weatherData.weather[0].icon.slice(2) === 'n';
 

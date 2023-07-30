@@ -8,23 +8,17 @@ const useStore = create((set) => ({
   initialLocation: [],
   markers: [],
   cardsCollection: [],
-  instructionsRead: true,
+  instructionsRead: false,
   locationPermissions: false,
   // loading: false,
   // error: false,
   // snackBarText: '',
-
-  // No use just created for timepass
-  isInitialLocationSet: () => {
-    return useStore.getState().initialLocation.length > 0;
-  },
 
   setLocationPermissions: () => {
     set(() => ({
       locationPermissions: true,
     }));
   },
-
   setInstructionsRead: (val) => {
     set(() => ({
       instructionsRead: val,
@@ -52,7 +46,6 @@ const useStore = create((set) => ({
       }
       return c;
     });
-    console.log(updatedMarkers);
     set(() => ({
       markers: updatedMarkers,
       cardsCollection: updatedCards,
@@ -65,21 +58,18 @@ const useStore = create((set) => ({
     const weatherData = await getWeather(pos[0], pos[1]);
     const newMarker = new Marker(markerId, marker, location);
     const newCard = new Card(markerId, location, weatherData);
-    console.log('Previous value of marker at store', useStore.getState());
     set((state) => ({
       markers: [...state.markers, newMarker],
       cardsCollection: [...state.cardsCollection, newCard],
     }));
   },
   deleteCard: (markerId) => {
-    console.log(markerId);
     const updatedCards = useStore
       .getState()
       .cardsCollection.filter((c) => c.markerId !== markerId);
     const updatedMarkers = useStore
       .getState()
       .markers.filter((m) => m.id !== markerId);
-    console.log(updatedCards, updatedMarkers);
     set(() => ({
       markers: updatedMarkers,
       cardsCollection: updatedCards,

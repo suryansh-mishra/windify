@@ -93,16 +93,6 @@ const ApplicationContainer = styled.div`
     gap: 0;
     background-image: var(--color--container--prime);
   }
-  /* ::before {
-    content: '';
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    background-size: cover;
-    background-repeat: no-repeat;
-    position: absolute;
-  } */
 `;
 
 const App = () => {
@@ -111,13 +101,16 @@ const App = () => {
     (state) => state.setLocationPermissions
   );
   const locationPermissions = useStore((state) => state.locationPermissions);
+  const setInstructionsRead = useStore((state) => state.setInstructionsRead);
 
   const initialLocation = useStore((state) => state.initialLocation);
   const showModal = useStore((state) => state.showModal);
   const setShowModal = useStore((state) => state.setShowModal);
-  const setInstructionsRead = () => {
+
+  const instructionsReadHandler = () => {
     localStorage.setItem('instructionsRead', 'READ');
     setShowModal(false);
+    setInstructionsRead(true);
   };
 
   const setInitialLocation = async (pos) => {
@@ -136,19 +129,14 @@ const App = () => {
 
   useEffect(() => {
     const foo = async () => {
-      console.log(instructionsRead, locationPermissions, initialLocation);
       if (localStorage.getItem('instructionsRead') !== 'READ') {
-        console.log('Setting up modal and instructions as not read');
-        setInstructionsRead(false);
         setShowModal(true);
       } else {
-        setInstructionsRead(true);
-
+        useStore.setState({ instructionsRead: true });
         const browserLocationPermissions = await navigator.permissions.query({
           name: 'geolocation',
         });
         if (browserLocationPermissions.state === 'granted') {
-          console.log('Found browser location permissions');
           setLocationPermissions();
         } else if (navigator.onLine && navigator.geolocation) {
           setLocationPermissions();
@@ -158,10 +146,15 @@ const App = () => {
       }
     };
     foo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [instructionsRead]);
 
   useEffect(() => {
-    if (locationPermissions && initialLocation.length === 0) {
+    if (
+      instructionsRead &&
+      locationPermissions &&
+      initialLocation.length === 0
+    ) {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (pos) => {
@@ -172,7 +165,8 @@ const App = () => {
         );
       }
     }
-  }, [locationPermissions]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [locationPermissions, instructionsRead]);
   return (
     <>
       <ApplicationContainer>
@@ -181,7 +175,7 @@ const App = () => {
           <CardList></CardList>
         </PrimeSectionContainer>
         {showModal && (
-          <InitialModal clickHandler={setInstructionsRead}></InitialModal>
+          <InitialModal clickHandler={instructionsReadHandler}></InitialModal>
         )}
         <MapComponent />
       </ApplicationContainer>

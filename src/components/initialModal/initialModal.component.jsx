@@ -8,7 +8,7 @@ const SmallText = styled.span`
 
 const Button = styled.button`
   margin: 1.5rem 0;
-  font-family: inherit;
+  font-family: Monteserrat, Arial, Helvetica, sans-serif;
   background-color: var(--color--modal--button);
   font-weight: 500;
   padding: 1rem 2rem;
@@ -30,23 +30,33 @@ const ModalContainer = styled.div`
   position: relative;
   color: black;
   max-width: 35%;
-
+  font-family: Poppins, Arial, Helvetica, sans-serif;
   background-color: var(--color--modal);
   font-size: 1.35rem;
+  font-weight: 500;
   padding: 3rem;
   display: flex;
+  text-align: justify;
   flex-direction: column;
   align-items: center;
   box-shadow: var(--box--shadow);
   z-index: 100;
   transition: all 0.3s ease-out;
   border-radius: 1.5rem;
-
+  h2 {
+    font-weight: 300;
+    font-size: 2.25rem;
+    padding-bottom: 2rem;
+    padding-top: 0.5rem;
+  }
   @media only screen and (max-width: 700px) {
     left: 0;
     top: 0;
     transform: translate(0, 0);
-    max-width: 70%;
+    max-width: 80%;
+  }
+  @media screen and (max-width: 500px) {
+    max-width: 90%;
   }
 `;
 
@@ -84,24 +94,3 @@ function Modal({ clickHandler }) {
 }
 
 export default Modal;
-
-/*
-section class="app">
-      <div class="modal modal-hidden">
-        <h2 class="modal--heading">Welcome To Windify</h2>
-        <p class="modal--introduction">
-
-          App uses location permissions, to find your current location and
-          generate appropriate Weather Information. <br /><br />You can click on
-          any place in the map canvas to know it's location and Weather
-          Information, a marker is formed as a result of the click. Cards on the
-          left pane of screen show Weather Information. You can drag and
-          position the marker, to location of choice, the Weather card updates
-          automatically!
-        </p>
-        <button class="modal-close">Let's Go →</button>
-        <span class="modal--author"
-          >This Project Is Made By Suryansh Mishra</span
-        >
-      </div>
-  */
