@@ -108,7 +108,7 @@ const App = () => {
   const setShowModal = useStore((state) => state.setShowModal);
 
   const instructionsReadHandler = () => {
-    localStorage.setItem('instructionsRead', 'READ');
+    localStorage.setItem('windify_instructions_read', 'READ');
     setShowModal(false);
     setInstructionsRead(true);
   };
@@ -129,7 +129,7 @@ const App = () => {
 
   useEffect(() => {
     const foo = async () => {
-      if (localStorage.getItem('instructionsRead') !== 'READ') {
+      if (localStorage.getItem('windify_instructions_read') !== 'READ') {
         setShowModal(true);
       } else {
         useStore.setState({ instructionsRead: true });
