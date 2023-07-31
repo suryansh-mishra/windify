@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { memo, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import THEMES from './card.themes';
 import useStore from '../../store/store';
 import { motion } from 'framer-motion';
@@ -101,32 +101,50 @@ function Card({ content, ...props }) {
     deleteCard(content?.markerId);
   };
 
+  const variants = {
+    initial: {
+      rotate: 0,
+      scale: 0.75,
+      opacity: 0,
+      x: 0,
+      y: -100,
+      outline: 'solid transparent .35rem',
+      outlineOffset: '.5rem',
+    },
+    animate: {
+      rotate: 0,
+      scale: 1,
+      opacity: 1,
+      y: 0,
+      x: 0,
+    },
+    hover: {
+      scale: 0.975,
+      outline: 'solid .45rem orange',
+      outlineOffset: '.35rem',
+      boxShadow: 'none',
+    },
+    exit: {
+      opacity: 0,
+      y: -50,
+      scale: 1,
+      x: 0,
+      rotate: 0,
+    },
+  };
+
   return (
     <CardStyled
       ref={cardRef}
-      whileHover={{
-        scale: 0.975,
-        outline: 'solid .45rem orange',
-        outlineOffset: '.35rem',
-        boxShadow: 'none',
-      }}
-      initial={{
-        opacity: 0,
-        y: -100,
-        scale: 0.75,
-        outline: 'solid transparent .35rem',
-        outlineOffset: '.5rem',
-      }}
+      variants={variants}
+      whileHover={'hover'}
+      initial={'initial'}
       transition={{
         duration: 0.2,
         delay: 0.075,
       }}
-      animate={{
-        opacity: 1,
-        scale: 1,
-        y: 0,
-      }}
-      exit={{ opacity: 0, y: 5 }}
+      animate={'animate'}
+      exit={'exit'}
       bgImage={backgroundImage}
       {...props}
     >
