@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useEffect, useRef } from 'react';
+import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import THEMES from './card.themes';
 import useStore from '../../store/store';
 import { motion } from 'framer-motion';
@@ -62,6 +62,11 @@ const WeatherIconWrapperStyled = styled.div`
     height: 5rem;
     width: 5rem;
   }
+  img,
+  svg {
+    width: '1rem';
+    shape-rendering: optimizeSpeed;
+  }
 `;
 const CloseButtonStyled = styled.button`
   border: 0;
@@ -87,7 +92,7 @@ function Card({ content, ...props }) {
     if (cardRef.current)
       cardRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }, [cardRef, content]);
-
+  // const [iconSource, setIconSource] = useState(content?.iconSource);
   const backgroundImage =
     THEMES[
       `${content.condition.toUpperCase()}_WEATHER${content.dark ? '_DARK' : ''}`
@@ -108,15 +113,14 @@ function Card({ content, ...props }) {
       initial={{
         opacity: 0,
         y: -100,
-        scale: 0.7,
+        scale: 0.75,
         outline: 'solid transparent .35rem',
         outlineOffset: '.5rem',
       }}
-      transition={
-        {
-          // duration: 0.25,
-        }
-      }
+      transition={{
+        duration: 0.2,
+        delay: 0.075,
+      }}
       animate={{
         opacity: 1,
         scale: 1,
@@ -142,9 +146,18 @@ function Card({ content, ...props }) {
       <p className={`wind_${content.markerId}`}>
         Winds blowing at {content?.windSpeed} m/s at {content?.windDegrees}° 💨
       </p>
-      <WeatherIconWrapperStyled>
-        <img src={content?.iconSource} className="weather-img" />
-      </WeatherIconWrapperStyled>
+      {/* <img
+        src={iconSource}
+        key={`WeatherIcon_${content.markerId}`}
+        className={`weather_image_${content.markerId}`}
+      /> */}
+      <WeatherIconWrapperStyled key={`WeatherIconWrapper_${content.markerId}`}>
+        <img
+          src={content?.iconSource}
+          key={`WeatherIcon_${content.markerId}`}
+          className={`weather_image_${content.markerId}`}
+        />
+      </WeatherIconWrapperStyled>{' '}
     </CardStyled>
   );
 }
