@@ -10,6 +10,8 @@ import useStore from './store/store';
 import { Marker, Card as CardClass } from './store/store.classes';
 import getLocation from './utils/getLocation';
 import getWeather from './utils/getWeather';
+import PlaceholderText from './components/placeholders/placeholder.text.component';
+import { AnimatePresence, easeIn, easeOut } from 'framer-motion';
 
 const PrimeSectionContainer = styled.main`
   display: flex;
@@ -106,7 +108,7 @@ const App = () => {
   const initialLocation = useStore((state) => state.initialLocation);
   const showModal = useStore((state) => state.showModal);
   const setShowModal = useStore((state) => state.setShowModal);
-
+  const cardsCollection = useStore((state) => state.cardsCollection);
   const instructionsReadHandler = () => {
     localStorage.setItem('windify_instructions_read', 'READ');
     setShowModal(false);
@@ -172,7 +174,16 @@ const App = () => {
       <ApplicationContainer>
         <PrimeSectionContainer>
           <Header />
-          <CardList></CardList>
+          {/* <section> */}
+          <AnimatePresence>
+            {cardsCollection.length === 0 && (
+              <PlaceholderText>
+                <p>Ooops, looks like you&apos;ll need to tap on Map! 🍃</p>
+              </PlaceholderText>
+            )}
+            <CardList></CardList>
+          </AnimatePresence>
+          {/* </section> */}
         </PrimeSectionContainer>
         {showModal && (
           <InitialModal clickHandler={instructionsReadHandler}></InitialModal>

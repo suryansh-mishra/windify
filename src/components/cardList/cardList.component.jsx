@@ -45,36 +45,38 @@ const CardListStyled = styled(motion.div)`
   }
 `;
 
-const PlaceholderText = styled.div`
-  font-size: 2.75rem;
-  display: grid;
-  place-items: center;
-  height: 100%;
-  width: 100%;
-  color: #414141;
-  padding: 0 4rem;
-  font-family: Poppins, Arial, Helvetica, sans-serif;
-  font-weight: 600;
-  text-align: center;
-`;
-
 function CardList() {
   const cardsCollection = useStore((state) => state.cardsCollection);
   const listToRender =
     cardsCollection.length > 0 ? cardsCollection.slice(0).reverse() : [];
   return (
-    <CardListStyled>
-      {cardsCollection.length === 0 && (
-        <PlaceholderText>
-          <p>Ooops, looks like you&apos;ll need to tap on Map! 🍃</p>
-        </PlaceholderText>
-      )}
+    <AnimatePresence>
+      {cardsCollection.length > 0 && (
+        <CardListStyled>
+          {/* {cardsCollection.length === 0 && (
+          <PlaceholderText
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.15 }}
+            exit={{
+              opacity: 0,
+              transition: {
+                delay: 0,
+              },
+            }}
+          >
+            <p>Ooops, looks like you&apos;ll need to tap on Map! 🍃</p>
+          </PlaceholderText>
+        )} */}
 
-      <AnimatePresence>
-        {cardsCollection.length > 0 &&
-          listToRender.map((c) => <Card key={c.markerId} content={c} />)}
-      </AnimatePresence>
-    </CardListStyled>
+          <AnimatePresence>
+            {listToRender.map((c) => (
+              <Card key={c.markerId} content={c} />
+            ))}
+          </AnimatePresence>
+        </CardListStyled>
+      )}
+    </AnimatePresence>
   );
 }
 

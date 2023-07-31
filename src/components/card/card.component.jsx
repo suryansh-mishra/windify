@@ -139,10 +139,12 @@ function Card({ content, ...props }) {
       variants={variants}
       whileHover={'hover'}
       initial={'initial'}
-      transition={{
-        duration: 0.2,
-        delay: 0.075,
-      }}
+      transition={
+        {
+          // duration: 0.2,
+          // delay: 0.025,
+        }
+      }
       animate={'animate'}
       exit={'exit'}
       bgImage={backgroundImage}
