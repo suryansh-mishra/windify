@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import Card from '../card/card.component';
 import useStore from '../../store/store';
-import { AnimatePresence, easeOut, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const CardListStyled = styled(motion.div)`
   display: flex;
@@ -28,27 +28,6 @@ const CardListStyled = styled(motion.div)`
     margin-bottom: 2rem;
   }
   scroll-behavior: smooth;
-
-  /*
-  ::-webkit-scrollbar {
-    width: 7px;
-    @media only screen and (max-width: 768px) {
-      height: 7px;
-    }
-  }
-  ::-webkit-scrollbar-track {
-    border-radius: 2rem;
-    box-shadow: -4px 0 20px 1px rgba(0, 0, 0, 0.1);
-    background: #fff;
-    @media only screen and (max-width: 768px) {
-      box-shadow: -4px 0 1px 1px rgba(0, 0, 0, 0.1);
-    }
-  }
-*/
-  /* ::-webkit-scrollbar-thumb {
-    border-radius: 2rem;
-    background: #d8d8d8;
-  } */
 `;
 
 function CardList() {
@@ -56,17 +35,18 @@ function CardList() {
   const listToRender =
     cardsCollection.length > 0 ? cardsCollection.slice(0).reverse() : [];
   return (
-    <AnimatePresence>
-      {cardsCollection.length > 0 && (
-        <CardListStyled transition={{ type: easeOut }}>
-          <AnimatePresence>
-            {listToRender.map((c) => (
-              <Card key={c.markerId} content={c} />
-            ))}
-          </AnimatePresence>
-        </CardListStyled>
-      )}
-    </AnimatePresence>
+    <CardListStyled
+      initial={{ opacity: 1 }}
+      exit={{
+        transition: { duration: 0.15 },
+      }}
+    >
+      <AnimatePresence>
+        {listToRender.map((c) => (
+          <Card key={c.markerId} content={c} />
+        ))}
+      </AnimatePresence>
+    </CardListStyled>
   );
 }
 

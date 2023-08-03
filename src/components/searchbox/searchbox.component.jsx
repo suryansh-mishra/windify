@@ -65,7 +65,6 @@ const ButtonStyled = styled.button`
   align-items: center;
   img {
     height: 50%;
-    /* outline: red solid 1rem; */
     position: relative;
     top: 0;
     left: 0;
@@ -78,6 +77,7 @@ function SearchBox() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(searchBoxRef.current.value);
+    searchBoxRef.current.blur();
     addMarkerByCityName(searchBoxRef.current.value);
     searchBoxRef.current.value = '';
   };

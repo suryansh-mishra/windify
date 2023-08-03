@@ -53,10 +53,7 @@ const App = () => {
         } else if (navigator.onLine && navigator.geolocation) {
           setLocationPermissions();
           setLoading(true);
-        } else {
-          setLoading(false);
-          // SET MODAL SAYING NO PERMISSIONS, SO MAY TAKE THE TAP TAP ROUTE
-        }
+        } else setLoading(false);
       }
     };
     foo();
@@ -98,13 +95,17 @@ const App = () => {
           )}
           {!loading && cardsCollection.length === 0 && (
             <Placeholder
-              transition={{ type: 'ease-out' }}
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: 1,
+                transition: { type: 'ease-out', delay: 0.15, duration: 0.15 },
+              }}
               key="placeholder-text"
             >
               <p>Ooops, looks like you&apos;ll need to tap on Map! 🍃</p>
             </Placeholder>
           )}
-          <CardList></CardList>
+          {cardsCollection.length > 0 && <CardList></CardList>}
         </AnimatePresence>
       </PrimeContainer>
       {showModal && (
