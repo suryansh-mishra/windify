@@ -10,7 +10,6 @@ const PrimeContainer = styled.main`
   z-index: 5;
   border-bottom-right-radius: var(--border-radius-soft-corner);
   border-top-right-radius: var(--border-radius-soft-corner);
-  /* background-image: var(--color--container--prime); */
   background-image: url('/public/bg1.jpg');
   box-shadow: var(--box--shadow);
   background-size: 40px 40px;
@@ -21,7 +20,7 @@ const PrimeContainer = styled.main`
     ),
     linear-gradient(to bottom, rgba(200, 200, 200, 0.3) 1px, #fff 1px);
 
-  @media only screen and (max-width: 700px) {
+  @media only screen and (max-width: 768px) {
     border-radius: 0;
     background: transparent;
     padding-inline: 1rem;

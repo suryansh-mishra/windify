@@ -14,7 +14,7 @@ const PlaceHolder = styled(motion.div)`
   font-family: Poppins, Arial, Helvetica, sans-serif;
   font-weight: 600;
   text-align: center;
-  @media screen and (max-width: 700px) {
+  @media screen and (max-width: 768px) {
     margin-top: 0;
     height: 100%;
     padding: 6rem 4rem;

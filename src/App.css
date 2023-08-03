@@ -25,6 +25,7 @@
 
   --box--shadow: 1px 1px 20px rgba(0, 0, 0, 0.5);
   --box--shadow--card: 5px 5px 10px rgba(0, 0, 0, 0.2);
+  --box-shadow--search-box: 1px 1px 5px rgba(0, 0, 0, 0.15);
   /* --box--shadow--card-hover: 5px 5px 20px rgba(0, 0, 0, 0.3); */
   --border-radius-soft-corner: 1.5rem;
 }

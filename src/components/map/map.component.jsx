@@ -23,7 +23,7 @@ const MapContainerStyled = styled.div`
   display: flex;
   overflow: hidden;
   background-image: var(--background-image);
-  @media only screen and (max-width: 700px) {
+  @media only screen and (max-width: 768px) {
     border-radius: 1rem;
     margin: 1rem;
     flex-basis: 400px;
@@ -79,7 +79,7 @@ function DraggableMarker({ markerId, coords, popupText, mapRef, icon }) {
 
 function MapComponent() {
   const markers = useStore((state) => state.markers);
-  const position = [51.505, -0.09];
+  const position = [28.7041, 78];
   const initialLocation = useStore((state) => state.initialLocation);
   const mapRef = useRef(null);
   useEffect(() => {

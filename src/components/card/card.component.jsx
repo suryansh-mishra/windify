@@ -19,7 +19,8 @@ const CardStyled = styled(motion.article)`
   position: relative;
   opacity: 1;
   background-color: var(--color--card--natural);
-  animation: ${(props) => props.hasChanged ?? 'cardContentChanged 1s linear'};
+  /* animation: ${(props) =>
+    props.hasChanged ?? 'cardContentChanged 1s linear'}; */
   background-image: ${(props) => props.bgImage ?? props.bgImage};
   cursor: pointer;
   border-radius: 1.5rem;
@@ -34,7 +35,7 @@ const CardStyled = styled(motion.article)`
   p {
     max-width: 70%;
   }
-  @media only screen and (max-width: 700px) {
+  @media only screen and (max-width: 768px) {
     min-width: 30rem;
   }
 
@@ -103,7 +104,6 @@ const CloseButtonStyled = styled.button`
 
 function Card({ content, ...props }) {
   const cardRef = useRef(null);
-  let hasChanged = false;
   const deleteCard = useStore((state) => state.deleteCard);
   useEffect(() => {
     console.log('Use effect ran');
@@ -119,7 +119,6 @@ function Card({ content, ...props }) {
   const closeHandler = () => {
     deleteCard(content?.markerId);
   };
-  console.log('Currently moving on with hasChanged value : ', hasChanged);
   const variants = {
     initial: {
       rotate: 0,
@@ -162,7 +161,6 @@ function Card({ content, ...props }) {
         duration: 0.15,
         type: easeIn,
       }}
-      hasChanged={hasChanged}
       animate={'animate'}
       exit={'exit'}
       bgImage={backgroundImage}

@@ -17,7 +17,7 @@ const CardListStyled = styled(motion.div)`
   padding-inline: 2.5rem;
   overflow-y: auto;
   height: 100vh;
-  @media screen and (max-width: 700px) {
+  @media screen and (max-width: 768px) {
     flex-flow: row;
     align-items: stretch;
     height: 100%;
@@ -32,7 +32,7 @@ const CardListStyled = styled(motion.div)`
   /*
   ::-webkit-scrollbar {
     width: 7px;
-    @media only screen and (max-width: 700px) {
+    @media only screen and (max-width: 768px) {
       height: 7px;
     }
   }
@@ -40,7 +40,7 @@ const CardListStyled = styled(motion.div)`
     border-radius: 2rem;
     box-shadow: -4px 0 20px 1px rgba(0, 0, 0, 0.1);
     background: #fff;
-    @media only screen and (max-width: 700px) {
+    @media only screen and (max-width: 768px) {
       box-shadow: -4px 0 1px 1px rgba(0, 0, 0, 0.1);
     }
   }

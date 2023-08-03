@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { Card, Marker } from './store.classes';
 import getLocation from '../utils/getLocation';
 import getWeather from '../utils/getWeather';
+import getCoordinates from '../utils/getCoordinates';
 
 const useStore = create((set) => ({
   showModal: false,
@@ -55,6 +56,22 @@ const useStore = create((set) => ({
       cardsCollection: updatedCards,
     }));
   },
+  addMarkerByCityName: async (cityName) => {
+    const coords_ = await getCoordinates(cityName);
+    const coords = [coords_[1], coords_[0]];
+    console.log(coords);
+    const location = await getLocation(coords[0], coords[1], true);
+
+    const weatherData = await getWeather(coords[0], coords[1]);
+    const markerId = Date.now().toString();
+    const newMarker = new Marker(markerId, coords, location);
+    const newCard = new Card(markerId, location, weatherData);
+    set((state) => ({
+      markers: [...state.markers, newMarker],
+      cardsCollection: [...state.cardsCollection, newCard],
+      loading: false,
+    }));
+  },
   addMarker: async (marker) => {
     const pos = marker;
     const markerId = Date.now().toString();
@@ -68,6 +85,7 @@ const useStore = create((set) => ({
       loading: false,
     }));
   },
+
   deleteCard: (markerId) => {
     const updatedCards = useStore
       .getState()

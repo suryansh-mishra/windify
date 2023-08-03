@@ -49,7 +49,7 @@ const ModalContainer = styled.div`
     padding-bottom: 2rem;
     padding-top: 0.5rem;
   }
-  @media only screen and (max-width: 700px) {
+  @media only screen and (max-width: 768px) {
     left: 0;
     top: 0;
     transform: translate(0, 0);

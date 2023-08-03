@@ -10,10 +10,10 @@ const ApplicationContainer = styled.div`
   background-color: #ffffff2f;
   backdrop-filter: blur(1px);
 
-  @media only screen and (min-width: 700px) {
+  @media only screen and (min-width: 768px) {
     max-height: 100vh;
   }
-  @media only screen and (max-width: 700px) {
+  @media only screen and (max-width: 768px) {
     flex-flow: column;
     min-height: 110vh;
     padding-block: 0;

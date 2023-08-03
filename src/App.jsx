@@ -6,10 +6,11 @@ import Header from './components/header/header.component';
 import { useEffect } from 'react';
 import useStore from './store/store';
 import Placeholder from './components/placeholders/placeholder.component';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, LazyMotion, domAnimation } from 'framer-motion';
 import ApplicationContainer from './components/containers/application.container';
 import PrimeContainer from './components/containers/prime.container';
 import Spinner from './components/spinner/spinner.component';
+import SearchBox from './components/searchbox/searchbox.component';
 
 const App = () => {
   const instructionsRead = useStore((state) => state.instructionsRead);
@@ -86,9 +87,11 @@ const App = () => {
   }, [locationPermissions, instructionsRead]);
 
   return (
+    // <LazyMotion features={domAnimation}>
     <ApplicationContainer>
       <PrimeContainer>
         <Header />
+        <SearchBox />
         <AnimatePresence>
           {loading && cardsCollection.length === 0 && (
             <Placeholder key="placeholder-spinner">
@@ -111,6 +114,7 @@ const App = () => {
       )}
       <MapComponent />
     </ApplicationContainer>
+    // </LazyMotion>
   );
 };
 

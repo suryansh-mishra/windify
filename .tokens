@@ -1,0 +1,7 @@
+sk.eyJ1Ijoic3VyeWFuc2htIiwiYSI6ImNsa3VoaGNrYTBveXMzZHBuMm03NHFoanEifQ.1cNgcH3s5eTkU3SP6jdP6w
+
+pk.eyJ1Ijoic3VyeWFuc2htIiwiYSI6ImNreTVwcDVzcjBvN28ycG80YWprNW8zdWYifQ.VMPxhWCpnNs9Gk-fGHt8hQ
+
+https://api.mapbox.com/geocoding/v5/mapbox.places/{searchText}.json
+
+"https://api.mapbox.com/geocoding/v5/mapbox.places/{location}.json?access_token=pk.eyJ1Ijoic3VyeWFuc2htIiwiYSI6ImNreTVwcDVzcjBvN28ycG80YWprNW8zdWYifQ.VMPxhWCpnNs9Gk-fGHt8hQ"
