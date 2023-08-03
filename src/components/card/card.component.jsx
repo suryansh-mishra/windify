@@ -106,7 +106,6 @@ function Card({ content, ...props }) {
   const cardRef = useRef(null);
   const deleteCard = useStore((state) => state.deleteCard);
   useEffect(() => {
-    console.log('Use effect ran');
     if (cardRef.current)
       cardRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     cardRef.current.focus();

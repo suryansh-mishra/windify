@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useEffect, useRef } from 'react';
 
 const SmallText = styled.span`
   padding: 1rem 0 1.5rem 0;
@@ -70,9 +71,14 @@ const ModalWrapper = styled.div`
 `;
 
 function Modal({ clickHandler }) {
+  const modalRef = useRef(null);
+  useEffect(() => {
+    modalRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return () => {};
+  });
   return (
     <ModalWrapper>
-      <ModalContainer>
+      <ModalContainer ref={modalRef}>
         <h2>Welcome To Windify</h2>
         <p>
           App uses location permissions, to find your current location and

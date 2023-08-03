@@ -68,13 +68,12 @@ function SearchBox() {
   const searchBoxRef = useRef(null);
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('In submit handler');
     console.log(searchBoxRef.current.value);
     addMarkerByCityName(searchBoxRef.current.value);
     searchBoxRef.current.value = '';
   };
   return (
-    <FormBoxStyled>
+    <FormBoxStyled onSubmit={handleSubmit}>
       <SearchBoxStyled
         type="text"
         placeholder="Search by city name"

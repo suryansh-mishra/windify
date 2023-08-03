@@ -87,7 +87,7 @@ const App = () => {
   }, [locationPermissions, instructionsRead]);
 
   return (
-    // <LazyMotion features={domAnimation}>
+    // <LazyMotion features={domAnimation} strict>
     <ApplicationContainer>
       <PrimeContainer>
         <Header />
