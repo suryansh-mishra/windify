@@ -58,6 +58,7 @@ function Header() {
           },
         }}
         src="wind_logo.png"
+        alt="Logo"
       />
       <motion.h1
         initial={{

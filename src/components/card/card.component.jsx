@@ -94,6 +94,7 @@ const CloseButtonStyled = styled.button`
   padding: 0 0.4rem;
   font-size: 1.5rem;
   cursor: pointer;
+  font-weight: 100;
   transition: all 0.2s ease-out;
   :hover {
     opacity: 0.8;
@@ -186,6 +187,7 @@ function Card({ content, ...props }) {
       <WeatherIconWrapperStyled key={`WeatherIconWrapper_${content.markerId}`}>
         <img
           src={content?.iconSource}
+          alt={`${content.condition}`}
           key={`WeatherIcon_${content.markerId}`}
           className={`weather_image_${content.markerId}`}
         />
