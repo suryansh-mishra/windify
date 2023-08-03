@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useEffect, useRef } from 'react';
 import THEMES from './card.themes';
 import useStore from '../../store/store';
-import { easeIn, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const CardStyled = styled(motion.article)`
   color: var(--color--card--text);
@@ -51,6 +51,9 @@ const CardStyled = styled(motion.article)`
       outline: 'solid .45rem orange';
       outline-offset: '.35rem';
     }
+  }
+  :hover {
+    box-shadow: none;
   }
 `;
 
@@ -101,9 +104,21 @@ const CloseButtonStyled = styled.button`
     opacity: 0.8;
   }
 `;
+const CurrentIndicatorStyled = styled.div`
+  position: absolute;
+  border-radius: 50%;
+  background-color: #78ff78;
+  height: 0.7rem;
+  aspect-ratio: 1/1;
+  top: 0rem;
+  right: 0rem;
+  margin-right: 4rem;
+  margin-top: 1.7rem;
+`;
 
 function Card({ content, ...props }) {
   const cardRef = useRef(null);
+  const lastMarker = useStore((state) => state.lastMarker);
   const deleteCard = useStore((state) => state.deleteCard);
   useEffect(() => {
     if (cardRef.current)
@@ -139,7 +154,6 @@ function Card({ content, ...props }) {
       scale: 0.975,
       outline: 'solid .45rem orange',
       outlineOffset: '.35rem',
-      boxShadow: 'none',
     },
     exit: {
       opacity: 0,
@@ -158,7 +172,7 @@ function Card({ content, ...props }) {
       initial={'initial'}
       transition={{
         duration: 0.15,
-        type: easeIn,
+        // type: easeIn,
       }}
       animate={'animate'}
       exit={'exit'}
@@ -168,6 +182,7 @@ function Card({ content, ...props }) {
       <h1 className={`temperature_${content.markerId}`}>
         {content?.temperature}
       </h1>
+      {lastMarker === content?.markerId && <CurrentIndicatorStyled />}
       <CloseButtonStyled onClick={closeHandler}>&#10006; </CloseButtonStyled>
       <p className={`condition_${content.markerId}`}>{content.condition}</p>
       <p className={`location_${content.markerId}`}>{content?.location} </p>

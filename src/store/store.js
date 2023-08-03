@@ -12,6 +12,7 @@ const useStore = create((set) => ({
   instructionsRead: false,
   locationPermissions: false,
   loading: true,
+  lastMarker: null,
   // error: false,
   // snackBarText: '',
   setLoading: (val) => {
@@ -38,12 +39,10 @@ const useStore = create((set) => ({
   updateMarker: async (markerId, pos) => {
     const location = await getLocation(pos[0], pos[1]);
     const weatherData = await getWeather(pos[0], pos[1]);
-
+    const newMarker = new Marker(markerId, pos, location);
     const updatedMarkers = useStore
       .getState()
-      .markers.map((m) =>
-        m.id === markerId ? new Marker(m.id, pos, location) : m
-      );
+      .markers.map((m) => (m.id === markerId ? newMarker : m));
 
     const updatedCards = useStore.getState().cardsCollection.map((c) => {
       if (c.markerId === markerId) {
@@ -54,6 +53,7 @@ const useStore = create((set) => ({
     set(() => ({
       markers: updatedMarkers,
       cardsCollection: updatedCards,
+      lastMarker: markerId,
     }));
   },
   addMarkerByCityName: async (cityName) => {
@@ -70,6 +70,7 @@ const useStore = create((set) => ({
       markers: [...state.markers, newMarker],
       cardsCollection: [...state.cardsCollection, newCard],
       loading: false,
+      lastMarker: markerId,
     }));
   },
   addMarker: async (marker) => {
@@ -83,6 +84,7 @@ const useStore = create((set) => ({
       markers: [...state.markers, newMarker],
       cardsCollection: [...state.cardsCollection, newCard],
       loading: false,
+      lastMarker: markerId,
     }));
   },
 
