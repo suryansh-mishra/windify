@@ -10,10 +10,14 @@ const useStore = create((set) => ({
   cardsCollection: [],
   instructionsRead: false,
   locationPermissions: false,
-  // loading: false,
+  loading: true,
   // error: false,
   // snackBarText: '',
-
+  setLoading: (val) => {
+    set(() => ({
+      loading: val,
+    }));
+  },
   setLocationPermissions: () => {
     set(() => ({
       locationPermissions: true,
@@ -61,6 +65,7 @@ const useStore = create((set) => ({
     set((state) => ({
       markers: [...state.markers, newMarker],
       cardsCollection: [...state.cardsCollection, newCard],
+      loading: false,
     }));
   },
   deleteCard: (markerId) => {

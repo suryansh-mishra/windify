@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import Card from '../card/card.component';
 import useStore from '../../store/store';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, easeOut, motion } from 'framer-motion';
 
 const CardListStyled = styled(motion.div)`
   display: flex;
@@ -28,21 +28,27 @@ const CardListStyled = styled(motion.div)`
     margin-bottom: 2rem;
   }
   scroll-behavior: smooth;
-  ::-webkit-scrollbar {
-    width: 1rem;
-  }
 
+  /*
+  ::-webkit-scrollbar {
+    width: 7px;
+    @media only screen and (max-width: 700px) {
+      height: 7px;
+    }
+  }
   ::-webkit-scrollbar-track {
     border-radius: 2rem;
     box-shadow: -4px 0 20px 1px rgba(0, 0, 0, 0.1);
-    background: #2121213c;
+    background: #fff;
+    @media only screen and (max-width: 700px) {
+      box-shadow: -4px 0 1px 1px rgba(0, 0, 0, 0.1);
+    }
   }
-
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
+*/
+  /* ::-webkit-scrollbar-thumb {
     border-radius: 2rem;
-    background: #f1f1f1;
-  }
+    background: #d8d8d8;
+  } */
 `;
 
 function CardList() {
@@ -52,23 +58,7 @@ function CardList() {
   return (
     <AnimatePresence>
       {cardsCollection.length > 0 && (
-        <CardListStyled>
-          {/* {cardsCollection.length === 0 && (
-          <PlaceholderText
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.15 }}
-            exit={{
-              opacity: 0,
-              transition: {
-                delay: 0,
-              },
-            }}
-          >
-            <p>Ooops, looks like you&apos;ll need to tap on Map! 🍃</p>
-          </PlaceholderText>
-        )} */}
-
+        <CardListStyled transition={{ type: easeOut }}>
           <AnimatePresence>
             {listToRender.map((c) => (
               <Card key={c.markerId} content={c} />

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
 
-const PlaceholderText = styled(motion.div)`
+const PlaceHolder = styled(motion.div)`
   font-size: 2.75rem;
   min-width: 100%;
   display: grid;
@@ -21,4 +21,4 @@ const PlaceholderText = styled(motion.div)`
   }
 `;
 
-export default PlaceholderText;
+export default PlaceHolder;

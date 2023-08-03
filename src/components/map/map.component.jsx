@@ -4,6 +4,17 @@ import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import { useMapEvent } from 'react-leaflet/hooks';
 import styled from '@emotion/styled';
 import useStore from '../../store/store';
+import L from 'leaflet';
+
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+
+let DefaultIcon = L.icon({
+  iconUrl: icon,
+  shadowUrl: iconShadow,
+});
+
+L.Marker.prototype.options.icon = DefaultIcon;
 
 const MapContainerStyled = styled.div`
   border-bottom-left-radius: 1rem;
@@ -30,7 +41,7 @@ function MyComponent() {
   return null;
 }
 
-function DraggableMarker({ markerId, coords, popupText, mapRef }) {
+function DraggableMarker({ markerId, coords, popupText, mapRef, icon }) {
   const markerRef = useRef(null);
   const popupRef = useRef(null);
   const updateMarker = useStore((state) => state.updateMarker);
@@ -57,6 +68,7 @@ function DraggableMarker({ markerId, coords, popupText, mapRef }) {
       position={coords}
       ref={markerRef}
       autoPan={true}
+      icon={icon}
     >
       <Popup minWidth={200} ref={popupRef}>
         <span>{popupText}</span>
@@ -82,6 +94,7 @@ function MapComponent() {
         zoom={6}
         scrollWheelZoom={true}
         ref={mapRef}
+        markerIcon
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -95,6 +108,7 @@ function MapComponent() {
               coords={marker.coords}
               popupText={marker.popupText}
               mapRef={mapRef}
+              icon={DefaultIcon}
             />
           ))}
         <MyComponent />

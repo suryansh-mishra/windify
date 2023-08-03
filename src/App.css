@@ -38,8 +38,8 @@
 }
 
 .leaflet-popup {
-  padding-left: 1.85rem;
-  padding-bottom: 0.35rem;
+  margin-left: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .leaflet-popup .leaflet-popup-content-wrapper {

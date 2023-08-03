@@ -10,11 +10,14 @@ const HeaderStyled = styled(motion.div)`
   position: relative;
   width: max-content;
   margin: 0 auto;
+  user-select: none;
+
   img {
     position: relative;
     align-self: center;
     top: 0;
     height: 2.5rem;
+    user-select: none;
   }
 
   h1 {

@@ -2,9 +2,9 @@ import styled from '@emotion/styled';
 import { useEffect, useRef } from 'react';
 import THEMES from './card.themes';
 import useStore from '../../store/store';
-import { motion } from 'framer-motion';
+import { easeIn, motion } from 'framer-motion';
 
-const CardStyled = styled(motion.div)`
+const CardStyled = styled(motion.article)`
   color: var(--color--card--text);
   font-size: 1.5rem;
   font-family: Poppins, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
@@ -19,7 +19,7 @@ const CardStyled = styled(motion.div)`
   position: relative;
   opacity: 1;
   background-color: var(--color--card--natural);
-
+  animation: ${(props) => props.hasChanged ?? 'cardContentChanged 1s linear'};
   background-image: ${(props) => props.bgImage ?? props.bgImage};
   cursor: pointer;
   border-radius: 1.5rem;
@@ -37,7 +37,22 @@ const CardStyled = styled(motion.div)`
   @media only screen and (max-width: 700px) {
     min-width: 30rem;
   }
+
+  @keyframes cardContentChanged {
+    0% {
+      scale: 0.975;
+      color: red;
+      outline: 'solid .45rem orange';
+      outline-offset: '.35rem';
+    }
+    100% {
+      scale: 0.975;
+      outline: 'solid .45rem orange';
+      outline-offset: '.35rem';
+    }
+  }
 `;
+
 const WeatherIconWrapperStyled = styled.div`
   position: absolute;
   border-top-left-radius: 7rem;
@@ -87,10 +102,13 @@ const CloseButtonStyled = styled.button`
 
 function Card({ content, ...props }) {
   const cardRef = useRef(null);
+  let hasChanged = false;
   const deleteCard = useStore((state) => state.deleteCard);
   useEffect(() => {
+    console.log('Use effect ran');
     if (cardRef.current)
       cardRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    cardRef.current.focus();
   }, [cardRef, content]);
   // const [iconSource, setIconSource] = useState(content?.iconSource);
   const backgroundImage =
@@ -100,7 +118,7 @@ function Card({ content, ...props }) {
   const closeHandler = () => {
     deleteCard(content?.markerId);
   };
-
+  console.log('Currently moving on with hasChanged value : ', hasChanged);
   const variants = {
     initial: {
       rotate: 0,
@@ -139,12 +157,11 @@ function Card({ content, ...props }) {
       variants={variants}
       whileHover={'hover'}
       initial={'initial'}
-      transition={
-        {
-          // duration: 0.2,
-          // delay: 0.025,
-        }
-      }
+      transition={{
+        duration: 0.15,
+        type: easeIn,
+      }}
+      hasChanged={hasChanged}
       animate={'animate'}
       exit={'exit'}
       bgImage={backgroundImage}
@@ -166,18 +183,13 @@ function Card({ content, ...props }) {
       <p className={`wind_${content.markerId}`}>
         Winds blowing at {content?.windSpeed} m/s at {content?.windDegrees}° 💨
       </p>
-      {/* <img
-        src={iconSource}
-        key={`WeatherIcon_${content.markerId}`}
-        className={`weather_image_${content.markerId}`}
-      /> */}
       <WeatherIconWrapperStyled key={`WeatherIconWrapper_${content.markerId}`}>
         <img
           src={content?.iconSource}
           key={`WeatherIcon_${content.markerId}`}
           className={`weather_image_${content.markerId}`}
         />
-      </WeatherIconWrapperStyled>{' '}
+      </WeatherIconWrapperStyled>
     </CardStyled>
   );
 }
