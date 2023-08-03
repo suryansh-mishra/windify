@@ -78,8 +78,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Acknowledgments
 
 I extend my gratitude to all libraries that made Windify possible.
-Enjoy Windify and stay informed about the weather!
-
-```
-
-```
+Enjoy Windify and stay informed about the weather
