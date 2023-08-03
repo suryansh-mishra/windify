@@ -12,8 +12,8 @@ const THEMES = {
   MIST_WEATHER_DARK: 'linear-gradient(135deg, #414141 0%, #21272b 75%)',
   CLOUDS_WEATHER: 'linear-gradient(135deg, #BDBDBD 0%, #3949AB 75%)',
   CLOUDS_WEATHER_DARK: 'linear-gradient(135deg, #414141 0%, #1d2037 75%)',
-  SNOW_WEATHER: 'linear-gradient(135deg, #E0E0E0 0%, #F5F5F5 75%)',
-  SNOW_WEATHER_DARK: 'linear-gradient(135deg, #E0E0E0 0%, #F5F5F5 75%)',
+  SNOW_WEATHER: 'linear-gradient(135deg, #fecf99 0%, #e46767 100%)',
+  SNOW_WEATHER_DARK: 'linear-gradient(135deg, #663c50 0%, #201123 100%)',
   THUNDERSTORM_WEATHER: 'linear-gradient(135deg, #A1887F 0%, #263238 75%)',
   THUNDERSTORM_WEATHER_DARK:
     'linear-gradient(135deg, #847367) 0%, #263238 75%)',

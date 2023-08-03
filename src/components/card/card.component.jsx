@@ -172,7 +172,6 @@ function Card({ content, ...props }) {
       initial={'initial'}
       transition={{
         duration: 0.15,
-        // type: easeIn,
       }}
       animate={'animate'}
       exit={'exit'}
